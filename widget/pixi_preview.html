@@ -1,0 +1,15 @@
+
+<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>PIXI Chrome Preview</title><style>html,body,#m{width:100%;height:100%;margin:0;padding:0;background:#0a0a0a}</style></head>
+<body><div id="m"></div><script>
+(function(){const m=document.getElementById('m');const W=m.clientWidth||1280,H=m.clientHeight||720;
+const c=document.createElement('canvas');c.width=W;c.height=H;m.appendChild(c);const g=c.getContext('2d');const t='3/333';
+function draw(){g.clearRect(0,0,W,H);g.save();g.translate(W/2,H/2-20);g.textAlign='center';g.textBaseline='middle';
+const s=Math.max(48,Math.min(W,H)*0.16);g.font='900 '+s+'px Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif';
+const grd=g.createLinearGradient(0,-s/2,0,s/2);grd.addColorStop(0,'#f8f8f8');grd.addColorStop(0.22,'#dcdcdc');grd.addColorStop(0.45,'#f6f6f6');grd.addColorStop(0.60,'#bfbfbf');grd.addColorStop(0.76,'#f0f0f0');grd.addColorStop(1,'#c9c9c9');
+g.fillStyle=grd;g.shadowColor='rgba(0,0,0,.35)';g.shadowBlur=18;g.shadowOffsetY=6;g.fillText(t,0,0);g.restore();}
+draw();c.addEventListener('click',()=>{let tt=0;const dur=1000;const st=performance.now();function anim(){tt=(performance.now()-st)/dur;if(tt>1)tt=1;draw();
+const ph=tt<=0.9?tt/0.9:1-(tt-0.9)/0.1*0.25;const x=(W*0.2)+(W*0.6)*ph;const y=H/2-20-Math.sin(ph*Math.PI)*30;
+const grd2=g.createRadialGradient(x,y,10,x,y,120);grd2.addColorStop(0,'rgba(255,255,255,0.9)');grd2.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=grd2;g.beginPath();g.arc(x,y,120,0,Math.PI*2);g.fill();
+if(tt<1)requestAnimationFrame(anim);else draw();}anim();});})();
+</script></body></html>
